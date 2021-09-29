@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog clock</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Analog clock</h1>
+        <div class="clock-container">
+            <div class="bg-container">
+                <div class="rotating-hand second"></div>
+                <div class="rotating-hand minute"></div>
+                <div class="rotating-hand hour"></div>
+            </div> 
+        </div>
+    </div>
+   
+    <script>
+    // get every properties in hour,minute 
+// and second and store them in these variable names
+
+let hourHand = document.querySelector(".hour");
+let minuteHand = document.querySelector(".minute");
+let secondHand = document.querySelector(".second");
+
+// function that rotates the hand
+
+function rotate(){
+
+    // get the current date object that contains the current hour, 
+    // minute, and second and store in the currentDate variable
+
+    const currentDate = new Date();
+    //get the current hour, minute, and seconds and them in the variables
+
+    const hours = currentDate.getHours();
+    const minutes = currentDate.getMinutes();
+    const seconds = currentDate.getSeconds();
+
+    console.log(hours,minutes,seconds);
+    // rotating fraction => how many fraction to rotate at each hand
+    const secondsFraction = seconds / 60;
+    const minutesFraction = (secondsFraction + minutes)/ 60;
+    const hoursFraction = (minutesFraction + hours)/ 12;
+
+    // actual deg to rotate
+
+    const secondDeg = secondsFraction * 360;
+    const minuteDeg = minutesFraction *360;
+    const hourDeg = hoursFraction * 360;
+
+    // apply the rotate style to each Element
+
+    secondHand.style.transform = `rotate(${secondDeg}deg)`;
+    minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+    hourHand.style.transform = `rotate(${hourDeg}deg)`;
+}
+
+// for every 1000 millisecond(that is 1 second), activate the rotate function
+
+setInterval(rotate,1000);
+</script>
+</body>
+</html>
